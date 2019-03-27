@@ -7,10 +7,10 @@ app.get('/', function(req, res) {
     res.type('Content-Type', 'application/xml');
     request.get({ url: "http://api.wbur.org/events", json: "true" }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            for (var i = 0; i < body.length; ++i) {
-                delete body[i].taxonomy;
+            for (var i = 0; i < body.body.length; ++i) {
+                delete body.body[i].taxonomy;
             }
-            res.send(jsonxml(body));
+            res.send(jsonxml(body.body));
         }
     });
 });
