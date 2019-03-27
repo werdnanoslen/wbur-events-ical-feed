@@ -13,8 +13,12 @@ app.get('/', function(req, res) {
                 var id = body.body[i].id;
                 wellFormed[id] = body.body[i];
             }
-            var final = '<root>' + jsonxml(wellFormed) + '</root>';
-            res.send(final);
+            xmlOptions = {
+              'xmlHeader': true,
+              'prettyPrint': true,
+              'removeIllegalNameCharacters': true
+            }
+            res.send(jsonxml(wellFormed, xmlOptions));
         }
     });
 });
