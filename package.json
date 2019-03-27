@@ -1,0 +1,18 @@
+{
+  "name": "wbur-events-xml-feed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "jsontoxml": "^1.0.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Andrew Nelson <andy@andyhub.com>",
+  "license": "public domain"
+}
