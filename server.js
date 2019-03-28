@@ -20,7 +20,8 @@ app.get('/', function(req, res) {
             }
             xmlOptions = {
               'prettyPrint': true,
-              'removeIllegalNameCharacters': true
+              'removeIllegalNameCharacters': true,
+              'xmlHeader': true
             }
             var finalXml = '<root>' + jsonxml(wellFormed, xmlOptions) + '</root>';
             res.set('Content-Type', 'application/xml');
