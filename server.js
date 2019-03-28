@@ -1,6 +1,5 @@
 var http = require('http');
 var request = require('request');
-var jsonxml = require('jsontoxml');
 const ical = require('ical-generator');
 const cal = ical({domain: 'heroku.com', name: 'WBUR Events'});
 
@@ -10,10 +9,10 @@ http.createServer(function(req, res) {
             for (var i = 0; i < body.body.length; ++i) {
                 var thisBody = body.body[i];
                 cal.createEvent({
-                    start: jsonxml.escape(thisBody.start),
-                    end: jsonxml.escape(thisBody.end),
-                    description: jsonxml.escape(thisBody.content),
-                    location: jsonxml.escape(thisBody.venue),
+                    start: thisBody.start,
+                    end: thisBody.end,
+                    description: thisBody.content,
+                    location: thisBody.venue,
                     url: thisBody.ticketURL
                 });
             }
