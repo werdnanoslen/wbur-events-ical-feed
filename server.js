@@ -10,21 +10,15 @@ app.get('/', function(req, res) {
             var wellFormed = {};
             for (var i = 0; i < body.body.length; ++i) {
                 delete body.body[i].taxonomy;
-                var thisBody = body.body[i];
-                wellFormed[thisBody.id] = {
-                  'title': thisBody.headline,
-                  'content': thisBody.content + '\n\nGet tickets here: ' + thisBody.ticketURL,
-                  'startTime': thisBody.start,
-                  'endTime': thisBody.end,
-                  'location': thisBody.venue
-                }
+                var id = body.body[i].id;
+                wellFormed[id] = body.body[i];
             }
             xmlOptions = {
-              'xmlHeader': true,
               'prettyPrint': true,
               'removeIllegalNameCharacters': true
-            }
-            res.send(jsonxml(wellFormed, xmlOptions));
+            };
+            var final = '<root>' + jsonxml(wellFormed, xmlOptions) + '</root>';
+            res.send(final);
         }
     });
 });
