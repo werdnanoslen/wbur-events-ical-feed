@@ -18,14 +18,19 @@ app.get('/', function(req, res) {
                   'location': jsonxml.escape(thisBody.venue)
                 }
             }
-            var finalJson = { 'root': wellFormed }
-            xmlOptions = {
+            var finalJson = [{
+                name: 'rss',
+                attrs: { version:'2.0' },
+                children: [ wellFormed ]
+            }];
+            var xmlOptions = {
               'prettyPrint': true,
               'removeIllegalNameCharacters': true,
               'xmlHeader': true
-            }
+            };
             res.set('Content-Type', 'application/xml');
             res.send(jsonxml(finalJson, xmlOptions));
+
         }
     });
 });
