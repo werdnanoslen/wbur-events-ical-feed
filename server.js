@@ -10,8 +10,14 @@ app.get('/', function(req, res) {
             var wellFormed = {};
             for (var i = 0; i < body.body.length; ++i) {
                 delete body.body[i].taxonomy;
-                var id = body.body[i].id;
-                wellFormed[id] = body.body[i];
+                var thisBody = body.body[i];
+                wellFormed[thisBody.id] = {
+                  'title': thisBody.headline,
+                  'content': thisBody.content + '\n\nGet tickets here: ' + thisBody.ticketURL,
+                  'startTime': thisBody.start,
+                  'endTime': thisBody.end,
+                  'location': thisBody.venue
+                }
             }
             xmlOptions = {
               'xmlHeader': true,
