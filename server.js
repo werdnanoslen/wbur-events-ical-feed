@@ -4,7 +4,6 @@ var jsonxml = require('jsontoxml');
 var app = express();
 
 app.get('/', function(req, res) {
-    res.type('Content-Type', 'application/xml');
     request.get({ url: "http://api.wbur.org/events", json: "true" }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var wellFormed = {};
@@ -24,6 +23,7 @@ app.get('/', function(req, res) {
               'removeIllegalNameCharacters': true
             }
             var finalXml = '<root>' + jsonxml(wellFormed, xmlOptions) + '</root>';
+            res.set('Content-Type', 'application/xml');
             res.send(finalXml);
         }
     });
