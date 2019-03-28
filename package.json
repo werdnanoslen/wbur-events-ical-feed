@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.16.4",
+    "http": "0.0.0",
+    "ical-generator": "^1.6.0",
     "jsontoxml": "^1.0.1",
     "request": "^2.88.0"
   },

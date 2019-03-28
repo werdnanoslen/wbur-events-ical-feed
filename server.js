@@ -1,40 +1,25 @@
-var express = require('express');
+var http = require('http');
 var request = require('request');
 var jsonxml = require('jsontoxml');
-var app = express();
+const ical = require('ical-generator');
+const cal = ical({domain: 'heroku.com', name: 'WBUR Events'});
 
-app.get('/', function(req, res) {
+http.createServer(function(req, res) {
     request.get({ url: "http://api.wbur.org/events", json: "true" }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var wellFormed = {};
             for (var i = 0; i < body.body.length; ++i) {
-                delete body.body[i].taxonomy;
                 var thisBody = body.body[i];
-                wellFormed[jsonxml.escape(thisBody.id)] = {
-                  'title': jsonxml.escape(thisBody.headline),
-                  'content': jsonxml.escape(thisBody.content + '\n\n Get tickets here: ' + thisBody.ticketURL),
-                  'startTime': jsonxml.escape(thisBody.start),
-                  'endTime': jsonxml.escape(thisBody.end),
-                  'location': jsonxml.escape(thisBody.venue)
-                }
+                cal.createEvent({
+                    start: jsonxml.escape(thisBody.start),
+                    end: jsonxml.escape(thisBody.end),
+                    description: jsonxml.escape(thisBody.content),
+                    location: jsonxml.escape(thisBody.venue),
+                    url: thisBody.ticketURL
+                });
             }
-            var finalJson = [{
-                name: 'rss',
-                attrs: { version:'2.0' },
-                children: [ wellFormed ]
-            }];
-            var xmlOptions = {
-              'prettyPrint': true,
-              'removeIllegalNameCharacters': true,
-              'xmlHeader': true
-            };
-            res.set('Content-Type', 'application/xml');
-            res.send(jsonxml(finalJson, xmlOptions));
-
+            cal.serve(res);
         }
     });
+}).listen(8000, '127.0.0.1', function() {
+    console.log('Server running at http://127.0.0.1:8000/');
 });
-
-app.set('port', process.env.PORT || 8000);
-app.listen(app.get('port'));
-console.log("The server is now running on port " + app.get('port'));
