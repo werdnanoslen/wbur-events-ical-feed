@@ -18,14 +18,14 @@ app.get('/', function(req, res) {
                   'location': jsonxml.escape(thisBody.venue)
                 }
             }
+            var finalJson = { 'root': wellFormed }
             xmlOptions = {
               'prettyPrint': true,
               'removeIllegalNameCharacters': true,
               'xmlHeader': true
             }
-            var finalXml = '<root>' + jsonxml(wellFormed, xmlOptions) + '</root>';
             res.set('Content-Type', 'application/xml');
-            res.send(finalXml);
+            res.send(jsonxml(finalJson, xmlOptions));
         }
     });
 });
