@@ -11,12 +11,12 @@ app.get('/', function(req, res) {
             for (var i = 0; i < body.body.length; ++i) {
                 delete body.body[i].taxonomy;
                 var thisBody = body.body[i];
-                wellFormed[thisBody.id] = {
-                  'title': thisBody.headline,
-                  'content': thisBody.content + '\n\n Get tickets here: ' + thisBody.ticketURL,
-                  'startTime': thisBody.start,
-                  'endTime': thisBody.end,
-                  'location': thisBody.venue
+                wellFormed[jsonxml.escape(thisBody.id)] = {
+                  'title': jsonxml.escape(thisBody.headline),
+                  'content': jsonxml.escape(thisBody.content + '\n\n Get tickets here: ' + thisBody.ticketURL),
+                  'startTime': jsonxml.escape(thisBody.start),
+                  'endTime': jsonxml.escape(thisBody.end),
+                  'location': jsonxml.escape(thisBody.venue)
                 }
             }
             xmlOptions = {
