@@ -19,7 +19,7 @@ var server = http.createServer(function(req, res) {
             cal.serve(res);
         }
     });
-}).listen(process.env.PORT || 8000, 'localhost', function() {
+}).listen(process.env.PORT || 8000, '0.0.0.0', function() {
     var url = server.address().address + ':' + server.address().port;
     console.log('Server running at ' + url);
 });
