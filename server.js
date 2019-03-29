@@ -3,7 +3,7 @@ var request = require('request');
 const ical = require('ical-generator');
 const cal = ical({domain: 'heroku.com', name: 'WBUR Events'});
 
-http.createServer(function(req, res) {
+var server = http.createServer(function(req, res) {
     request.get({ url: "http://api.wbur.org/events", json: "true" }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             for (var i = 0; i < body.body.length; ++i) {
@@ -19,6 +19,7 @@ http.createServer(function(req, res) {
             cal.serve(res);
         }
     });
-}).listen(8000, '127.0.0.1', function() {
-    console.log('Server running at http://127.0.0.1:8000/');
+}).listen(8000, 'localhost', function() {
+    var url = server.address().address + ':' + server.address().port;
+    console.log('Server running at ' + url);
 });
