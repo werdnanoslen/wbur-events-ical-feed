@@ -11,6 +11,7 @@ var server = http.createServer(function(req, res) {
                 cal.createEvent({
                     start: thisBody.start,
                     end: thisBody.end,
+                    summary: thisBody.headline,
                     description: thisBody.content,
                     location: thisBody.venue,
                     url: thisBody.ticketURL
