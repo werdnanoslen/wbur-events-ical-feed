@@ -13,8 +13,8 @@ var server = http.createServer(function(req, res) {
             for (var i = 0; i < body.body.length; ++i) {
                 var thisBody = body.body[i];
                 cal.createEvent({
-                    start: thisBody.start,
-                    end: thisBody.end,
+                    start: new Date(thisBody.start + '-0400'),
+                    end: new Date(thisBody.end + '-0400'),
                     summary: thisBody.headline,
                     description: thisBody.ticketURL + '\n\n' + thisBody.content,
                     location: thisBody.venue,
