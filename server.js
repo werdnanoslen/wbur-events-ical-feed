@@ -1,7 +1,11 @@
 var http = require('http');
 var request = require('request');
 const ical = require('ical-generator');
-const cal = ical({domain: 'heroku.com', name: 'WBUR Events'});
+const cal = ical({
+  domain: 'heroku.com',
+  name: 'WBUR Events',
+  timezone: 'America/New_York'
+});
 
 var server = http.createServer(function(req, res) {
     request.get({ url: "http://api.wbur.org/events", json: "true" }, function(error, response, body) {
@@ -12,7 +16,7 @@ var server = http.createServer(function(req, res) {
                     start: thisBody.start,
                     end: thisBody.end,
                     summary: thisBody.headline,
-                    description: thisBody.content,
+                    description: thisBody.ticketURL + '\n\n' + thisBody.content,
                     location: thisBody.venue,
                     url: thisBody.ticketURL
                 });
