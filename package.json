@@ -1,5 +1,5 @@
 {
-  "name": "wbur-events-xml-feed",
+  "name": "wbur-events-ical-feed",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -14,5 +14,5 @@
     "start": "node server.js"
   },
   "author": "Andrew Nelson <andy@andyhub.com>",
-  "license": "public domain"
+  "license": "MIT"
 }
